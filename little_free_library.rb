@@ -9,12 +9,10 @@ def look(library)
 
 end
 
-def take(title, library, collection)
+def take(title, library, user_books)
 
     if library.any? { |book| book.first == title }
-        desired_book = library.find { |book| book.first == title }
-        collection.push(desired_book)
-        library.delete_at(library.index(desired_book))
+        book_transfer(title, library, user_books)
         puts "You now have #{ title } in your collection."
     else
         puts "The library doesn't have any books with the title #{ title }!"
@@ -22,18 +20,24 @@ def take(title, library, collection)
 
 end
 
-def place(title, library, capacity, collection)
+def place(title, library, capacity, user_books)
 
     if library.size >= capacity
         puts "Sorry, the library is full! Not accepting any books at this time."
-    elsif collection.any? { |book| book.first == title }
-        desired_book = collection.find { |book| book.first == title }
-        library.push(desired_book)
-        collection.delete_at(collection.index(desired_book))
+    elsif user_books.any? { |book| book.first == title }
+        book_transfer(title, user_books, library)
         puts "You have added #{ title } to the library."
     else
         puts "You don't have any books with the title #{ title }!"
     end
+
+end
+
+def book_transfer(title, current_collection, target_collection)
+
+    desired_book = current_collection.find { |book| book.first == title }
+    target_collection.push(desired_book)
+    current_collection.delete_at(current_collection.index(desired_book))
 
 end
 
