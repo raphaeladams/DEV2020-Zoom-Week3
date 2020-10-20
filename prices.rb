@@ -3,7 +3,6 @@
 
 def total(prices)
     amount = 0
-    index = 0
     prices.each do |price|
         amount += price
     end
@@ -17,10 +16,8 @@ puts format("%.2f", total(prices))
 
 def refund(prices)
     amount = 0
-    index = 0
-    while index < prices.length
-        amount -= prices[index]
-        index += 1
+    prices.each do |price|
+        amount -= price
     end
     amount
 end
