@@ -45,14 +45,11 @@ else
     print "s" if num_coins > 1
     all_coins.delete(coin_name)
 
-    if all_coins.size == 1
-      print " and "
-    elsif all_coins.size == 0
-      print ".\n"
-    else
-      print ", "
+    case all_coins.size
+      when 1 then print " and "
+      when 0 then print ".\n"
+      else print ", "
     end
-    
   end
 end
 
