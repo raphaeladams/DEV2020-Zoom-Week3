@@ -25,10 +25,17 @@ end
 
 count_coins(change, all_coins, total_coins) do |coin_name, coin_worth|
   num_coins = change / coin_worth
-  change = change % coin_worth
-  all_coins[coin_name] = num_coins
+  change %= coin_worth
+  all_coins[coin_name] = num_coins if num_coins > 0
   total_coins += num_coins
 end
 
-puts all_coins
-puts total_coins
+if all_coins.empty?
+  puts "You don’t need to dispense change."
+else
+  print "You need to dispense "
+  all_coins.each { |coin_name, num_coins| print "#{ num_coins } #{ coin_name }, " }
+  print "\n"
+end
+
+puts "Total coins: #{ total_coins }"
