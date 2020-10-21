@@ -3,11 +3,11 @@
 
 
 def count_coins(change, all_coins, total_coins)
-  yield("toonies", 200)
-  yield("loonies", 100)
-  yield("quarters", 25)
-  yield("dimes", 10)
-  yield("nickels", 5)
+  yield("toonie", 200)
+  yield("loonie", 100)
+  yield("quarter", 25)
+  yield("dime", 10)
+  yield("nickel", 5)
 end
 
 
@@ -18,8 +18,10 @@ all_coins = Hash.new
 loop do
   print "How much change is owed? "
   input = gets.chomp
-  next unless input.match?(/^\d*\.\d*$/)
-  change = (input.to_f * 100).round
+  next unless input.match?(/^\d*\.?\d*$/)
+
+  total_cents = (input.to_f * 100).round
+  change = total_cents % 5 > 2 ? (total_cents/5 + 1) * 5 : (total_cents/5) * 5
   break
 end
 
@@ -31,11 +33,27 @@ count_coins(change, all_coins, total_coins) do |coin_name, coin_worth|
 end
 
 if all_coins.empty?
+
   puts "You don’t need to dispense change."
+
 else
+
   print "You need to dispense "
-  all_coins.each { |coin_name, num_coins| print "#{ num_coins } #{ coin_name }, " }
-  print "\n"
+  all_coins.each do |coin_name, num_coins|
+    
+    print "#{ num_coins } #{ coin_name }"
+    print "s" if num_coins > 1
+    all_coins.delete(coin_name)
+
+    if all_coins.size == 1
+      print " and "
+    elsif all_coins.size == 0
+      print ".\n"
+    else
+      print ", "
+    end
+    
+  end
 end
 
 puts "Total coins: #{ total_coins }"
