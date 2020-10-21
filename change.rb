@@ -3,11 +3,11 @@
 
 
 def count_coins(change, all_coins, total_coins)
-  yield("toonie", 200)
-  yield("loonie", 100)
-  yield("quarter", 25)
-  yield("dime", 10)
-  yield("nickel", 5)
+  yield(:toonie, 200)
+  yield(:loonie, 100)
+  yield(:quarter, 25)
+  yield(:dime, 10)
+  yield(:nickel, 5)
 end
 
 
